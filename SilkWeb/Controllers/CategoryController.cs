@@ -16,6 +16,7 @@ namespace SilkWeb.Controllers
             List<Category> objCategoryList = _db.Categories.ToList();
             return View(objCategoryList);
         }
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -34,6 +35,33 @@ namespace SilkWeb.Controllers
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Category");
+            }
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0) 
+            {
+                return NotFound();
+            }
+            //Category? categoryFromDb = _db.Categories.Find(id);  --only works with primary Key
+            Category? categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
+            //Category? categoryFromDb = _db.Categories.Where(c => c.Id == id).FirstOrDefault();  --used when some more filtering required in Where clause
+            if(categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+        [HttpPost]
+        public IActionResult Edit(Category obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Update(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Category");
             }
