@@ -1,0 +1,19 @@
+﻿@if (TempData["success"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        toastr.success('@TempData["success"]');
+    </script>
+    //only stays there for one request or one render if page refreshed it will be lost
+}
+@if (TempData["error"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        toastr.error('@TempData["error"]');
+    </script>
+    //only stays there for one request or one render if page refreshed it will be lost
+}
+

@@ -36,6 +36,7 @@ namespace SilkWeb.Controllers
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Created Successfully!";
                 return RedirectToAction("Index", "Category");
             }
             return View();
@@ -63,9 +64,39 @@ namespace SilkWeb.Controllers
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Edited Successfully!";
                 return RedirectToAction("Index", "Category");
             }
             return View();
+        }
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            //Category? categoryFromDb = _db.Categories.Find(id);  --only works with primary Key
+            Category? categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
+            //Category? categoryFromDb = _db.Categories.Where(c => c.Id == id).FirstOrDefault();  --used when some more filtering required in Where clause
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+        [HttpPost,ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            Category? obj = _db.Categories.FirstOrDefault(c => c.Id == id);
+            if (obj == null)
+            {
+                return NotFound();  
+            }
+            _db.Categories.Remove(obj);
+            _db.SaveChanges();
+            TempData["success"] = "Category Deleted Successfully!";
+            return RedirectToAction("Index", "Category");
         }
     }
 }
