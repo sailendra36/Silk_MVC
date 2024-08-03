@@ -1,15 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="appsettings.Production.json" />
-    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Category\Create.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Category\Delete.cshtml" />
+    <Compile Remove="Class1.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,25 +17,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Areas\Admin\Views\Category\Create.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Areas\Admin\Views\Category\Delete.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Silk.DataAccess\Silk.DataAccess.csproj" />
     <ProjectReference Include="..\Silk.Models\Silk.Models.csproj" />
     <ProjectReference Include="..\Silk.Utility\Silk.Utility.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
