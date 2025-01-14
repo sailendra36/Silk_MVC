@@ -7,7 +7,11 @@ a.navbar-brand {
     word-break: break-all;
 }
 
-
+.img-uniform {
+    width: 274px; /* Set your desired width */
+    height: 411px; /* Set your desired height */
+    object-fit: cover; /* Ensures the image covers the entire area without distortion */
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;

@@ -1,10 +1,12 @@
 ﻿using Silk.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace Silk.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>   //IdentityDbContext instead to DbContext since need to now implement login/register authentications
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :base (options)
         {
@@ -12,12 +14,49 @@ namespace Silk.DataAccess.Data
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);              //in we use IdentityDbContext instead to DbContext then this line is must to add as configuration here
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
                 new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
+                );
+            modelBuilder.Entity<Company>().HasData(
+                new Company { 
+                    Id = 1, 
+                    Name = "PWC", 
+                    StreetAddress = "123 Tech St" ,
+                    City = "Noida",
+                    PostalCode = "12121",
+                    State = "IN",
+                    PhoneNumber = "9876543210"
+                },
+                new Company
+                {
+                    Id = 2,
+                    Name = "Deloitte",
+                    StreetAddress = "45 Tech St",
+                    City = "Gurgaon",
+                    PostalCode = "14121",
+                    State = "IN",
+                    PhoneNumber = "9876543211"
+                },
+                new Company
+                {
+                    Id = 3,
+                    Name = "Ernst & Young",
+                    StreetAddress = "12 Tech St",
+                    City = "Delhi",
+                    PostalCode = "12100",
+                    State = "IN",
+                    PhoneNumber = "9876543212"
+                }
                 );
             modelBuilder.Entity<Product>().HasData(
                 new Product

@@ -1,0 +1,61 @@
+﻿@model Company
+
+|<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-primary">Delete Company</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            @* <input asp-for="Id" hidden />  -- rightnow not required becoz Primary field is Id which is by default taken by entity framework but if something like CompanyId
+            then hidden field is required - else it will keep exsiting record and instead of editing it will add new one*@
+            <input asp-for="Id" hidden />
+            <div class="border p-3 mt-0-4">
+                <div asp-validation-summary="All"></div>
+                @* <div asp-validation-summary="ModelOnly"></div> -- will only display model related error but not property related errors*@
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Name" disabled class="form-control shadow border-0"></input>
+                    <label asp-for="Name" class="ms-2"></label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="StreetAddress" disabled class="form-control shadow border-0"></input>
+                    <label asp-for="StreetAddress" class="ms-2"></label>
+                    <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="City" disabled class="form-control shadow border-0"></input>
+                    <label asp-for="City" class="ms-2"></label>
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="State" disabled class="form-control shadow border-0"></input>
+                    <label asp-for="State" class="ms-2"></label>
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="PhoneNumber" disabled class="form-control shadow border-0"></input>
+                    <label asp-for="PhoneNumber" class="ms-2"></label>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-danger form-control">Delete</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Company" asp-action="Index" class="btn btn-outline-primary border form-control">Back To List</a>
+                    </div>
+                </div>
+                @* <partial name="_ValidationScriptsPartial" /> -- if partial is not script related,can be added here in master page like this *@
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
