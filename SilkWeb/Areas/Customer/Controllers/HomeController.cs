@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Silk.DataAccess.Repository.IRepository;
 using Silk.Models;
+using Silk.Utility;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -21,6 +23,7 @@ namespace SilkWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
+            
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return View(productList);
         }
@@ -47,12 +50,16 @@ namespace SilkWeb.Areas.Customer.Controllers
                 //cart item already exisits - update
                 cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
+                _unitOfWork.Save();
             }
             else
             {
+                //add cart record
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count()); // setting session for cart item count for loggedin user
             }
-            _unitOfWork.Save();
+            
             TempData["Success"] = "Cart updated Successfully";
 
             return RedirectToAction("Index");

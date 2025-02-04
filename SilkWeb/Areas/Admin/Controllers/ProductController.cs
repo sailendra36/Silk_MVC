@@ -11,7 +11,7 @@ using Silk.Utility;
 namespace SilkWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = SD.Role_Admin)]               //so that by just having the url,no one should be able to access the controllers except if user is admin type
+    [Authorize(Roles = SD.Role_Admin)]               //so that by just having the url,no one should be able to access the controllers except if user is admin type
     public class ProductController : Controller
     {
         //private readonly ApplicationDbContext _db;     -- commented bociz of repo implementation
@@ -203,7 +203,7 @@ namespace SilkWeb.Areas.Admin.Controllers
         public IActionResult GetAll()
         {
             List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
-            return Json(new { objProductList });
+            return Json(new { data = objProductList });
         }
         [HttpDelete]
         public IActionResult Delete(int? id)

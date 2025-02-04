@@ -11,7 +11,7 @@ function loadDataTable() {
             //    console.log(json); // Log the response to inspect it
             //    return json.data; // Ensure this matches your JSON structure
             //},
-            dataSrc: 'objProductList'
+                //dataSrc: 'objProductList'
             
         },
         "columns": [

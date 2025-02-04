@@ -9,7 +9,7 @@ using Silk.Utility;
 namespace SilkWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = SD.Role_Admin)]               //so that by just having the url,no one should be able to access the controllers except if user is admin type
+    [Authorize(Roles = SD.Role_Admin)]               //so that by just having the url,no one should be able to access the controllers except if user is admin type
     public class CategoryController : Controller
     {
         //private readonly ApplicationDbContext _db;     -- commented bociz of repo implementation
